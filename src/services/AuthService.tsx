@@ -11,9 +11,9 @@ class AuthService{
             password: userData.password,
             password2: userData.password2,
             email: userData.email,
-        }).then( (response) => {
+        }).then( (response:any) => {
             console.log(response);
-        }).catch( (error) => {
+        }).catch( (error:any) => {
             console.log(error.response.data);
         });
     }
@@ -22,9 +22,9 @@ class AuthService{
         return axios.post(this.url + 'user/login/', {
             username: userData.username,
             password: userData.password,
-        }).then( (response) => {
+        }).then( (response:any) => {
             console.log(response);
-        }).catch( (error) => {
+        }).catch( (error:any) => {
             console.log(error);
         })
     }
