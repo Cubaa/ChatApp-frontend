@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { FormControl, Input, InputLabel, FormHelperText } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import {IUserDataRegisterType} from '../../../Types/userRegisterDataTypes'
+import AuthService from "../../../services/AuthService";
 
 
 export const SignIn:React.FC = ()=>{
@@ -11,14 +12,12 @@ export const SignIn:React.FC = ()=>{
     const handleSignIn = ()=>{
         const formData = new FormData(formEl.current)
    
-        console.log(formData.get('email'), typeof formData.get('password'))
-
         const userRegisterData: any = {
-            email: formData.get('email'),
+            username: formData.get('username'),
             password: formData.get('password'),
         }
 
-        console.log(userRegisterData)
+        AuthService.loginUser(userRegisterData);
        
     }
 
@@ -27,8 +26,8 @@ export const SignIn:React.FC = ()=>{
             <h1>Sign in</h1>
             <Form ref = {formEl}>
                 <FormControl>
-                    <InputLabel htmlFor="email-input">Email</InputLabel>
-                    <Input id="email-input" aria-describedby="my-helper-text" name="email" />
+                    <InputLabel htmlFor="username-input">Username</InputLabel>
+                    <Input id="username-input" aria-describedby="my-helper-text" name="username" />
                 </FormControl>
                 <FormControl>
                     <InputLabel htmlFor="password-input">Password</InputLabel>

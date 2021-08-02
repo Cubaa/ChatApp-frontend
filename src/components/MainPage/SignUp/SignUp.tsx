@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import { FormControl, Input, InputLabel, FormHelperText } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import {IUserDataRegisterType} from '../../../Types/userRegisterDataTypes'
+import "../../../services/AuthService";
+import AuthService from "../../../services/AuthService";
 
 
 export const SignUp:React.FC = ()=>{
@@ -11,16 +13,18 @@ export const SignUp:React.FC = ()=>{
     const handleSignUp = ()=>{
         const formData = new FormData(formEl.current)
    
-        console.log(formData.get('name'), formData.get('lastname'), formData.get('email'), typeof formData.get('password'))
-
         const userRegisterData: any = {
-            name: formData.get('name'),
-            lastname: formData.get('lastname'),
+            username: formData.get('username'),
+            first_name: formData.get('firstname'),
+            last_name: formData.get('lastname'),
             email: formData.get('email'),
             password: formData.get('password'),
+            password2: formData.get('password2'),
         }
 
-        console.log(userRegisterData)
+        AuthService.registerUser(userRegisterData).then((response) => {
+            console.log(response);
+        });
        
     }
 
@@ -29,11 +33,15 @@ export const SignUp:React.FC = ()=>{
             <h1>Sign up</h1>
             <Form ref = {formEl}>
                 <FormControl>
-                    <InputLabel htmlFor="name-input">Name</InputLabel>
-                    <Input id="name-input" aria-describedby="my-helper-text" name="name" />
+                    <InputLabel htmlFor="username-input">Username</InputLabel>
+                    <Input id="username-input" aria-describedby="my-helper-text" name="username" />
                 </FormControl>
                 <FormControl>
-                    <InputLabel htmlFor="lastname-input">Lastname</InputLabel>
+                    <InputLabel htmlFor="name-input">First Name</InputLabel>
+                    <Input id="name-input" aria-describedby="my-helper-text" name="firstname" />
+                </FormControl>
+                <FormControl>
+                    <InputLabel htmlFor="lastname-input">Last Name</InputLabel>
                     <Input id="lastname-input" aria-describedby="my-helper-text" name="lastname" />
                 </FormControl>
                 <FormControl>
@@ -43,6 +51,10 @@ export const SignUp:React.FC = ()=>{
                 <FormControl>
                     <InputLabel htmlFor="password-input">Password</InputLabel>
                     <Input type="password" id="password-input" aria-describedby="my-helper-text" name="password" />
+                </FormControl>
+                <FormControl>
+                    <InputLabel htmlFor="password2-input">Password</InputLabel>
+                    <Input type="password" id="password2-input" aria-describedby="my-helper-text" name="password2" />
                 </FormControl>
                 <Button onClick={()=>handleSignUp()} variant="contained" color="primary">Register</Button>   
             </Form>
